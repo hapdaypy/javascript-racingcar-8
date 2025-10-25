@@ -32,12 +32,17 @@ class App {
           0,
           9,
         );
-        console.log(straightjDiscrimination);
 
         if (straightjDiscrimination >= 4) {
           eachCarRacingReocord[index2] += '-';
         }
       }
+    }
+    let largestDistance = 0;
+
+    for (let index = 0; index < eachCarRacingReocord.length; index++) {
+      if (largestDistance < eachCarRacingReocord[index].length)
+        largestDistance = eachCarRacingReocord[index].length;
     }
   }
 }
