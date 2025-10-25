@@ -44,6 +44,17 @@ class App {
       if (largestDistance < eachCarRacingReocord[index].length)
         largestDistance = eachCarRacingReocord[index].length;
     }
+
+    const rankingArry = [];
+
+    for (let index = 0; index < numberOfCar; index++) {
+      if (largestDistance == eachCarRacingReocord[index].length) {
+        console.log(eachCarRacingReocord[index]);
+        rankingArry.push(splitCarName[index]);
+      }
+    }
+
+    console.log(rankingArry);
   }
 }
 
