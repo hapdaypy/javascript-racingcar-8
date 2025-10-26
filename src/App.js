@@ -18,6 +18,8 @@ class App {
     const tryNumber =
       await MissionUtils.Console.readLineAsync('시도할 횟수는 몇 회인가요?');
 
+    if (!Number.isNaN(tryNumber)) throw new Error('ERROR');
+
     const splitCarName = carName.split(','); // ,를 기준으로 자동차 이름 나누기
 
     for (const element of splitCarName) {
