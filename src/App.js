@@ -20,6 +20,11 @@ class App {
 
     const splitCarName = carName.split(','); // ,를 기준으로 자동차 이름 나누기
 
+    for (const element of splitCarName) {
+      // 이름에 공백이 있을 경우
+      if (element == '' || element.length > 5) throw new Error('ERROR');
+    }
+
     const eachCarRacingReocord = Array.from(
       { length: splitCarName.length },
       () => '',
