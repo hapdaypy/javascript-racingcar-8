@@ -5,19 +5,18 @@ class App {
     const carName = await MissionUtils.Console.readLineAsync(
       '경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)',
     );
+
     const carNameLength = carName.length;
 
     if (',' == carName[carNameLength - 1]) {
       // 문자열 마지막에 , 가 있을 경우 ERROR를 출력하고 종료
-      Console.print('ERROR');
-      return;
+      throw new Error('ERROR');
     }
 
     const tryNumber =
       await MissionUtils.Console.readLineAsync('시도할 횟수는 몇 회인가요?');
 
     const splitCarName = carName.split(','); // ,를 기준으로 자동차 이름 나누기
-    //console.log(splitCarName);
 
     const eachCarRacingReocord = Array.from(
       { length: splitCarName.length },
@@ -36,8 +35,13 @@ class App {
         if (straightjDiscrimination >= 4) {
           eachCarRacingReocord[index2] += '-';
         }
+        MissionUtils.Console.print(
+          `${splitCarName[index2]} : ${eachCarRacingReocord[index2]}`,
+        );
       }
+      MissionUtils.Console.print('');
     }
+
     let largestDistance = 0;
 
     for (let index = 0; index < eachCarRacingReocord.length; index++) {
@@ -49,12 +53,12 @@ class App {
 
     for (let index = 0; index < numberOfCar; index++) {
       if (largestDistance == eachCarRacingReocord[index].length) {
-        console.log(eachCarRacingReocord[index]);
+        //   console.log(eachCarRacingReocord[index]);
         rankingArry.push(splitCarName[index]);
       }
     }
 
-    console.log(rankingArry);
+    MissionUtils.Console.print(`최종 우승자 : ${rankingArry.join(', ')}`); // 파라미터를 1개만 쓸 수 잇음, 표준임
   }
 }
 
