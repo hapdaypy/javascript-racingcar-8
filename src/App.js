@@ -24,17 +24,21 @@ class App {
     );
 
     /////////////////////////////// 최대값 찾기
-    largestDistance = this.findMaxDistance(eachCarRacingReocord);
+    const largestDistance = this.findMaxDistance(eachCarRacingReocord);
 
     /////////////////////////// 랭킹
     const rankingArry = [];
-    for (let index = 0; index < numberOfCar; index++) {
-      if (largestDistance == eachCarRacingReocord[index].length) {
-        rankingArry.push(splitCarName[index]);
-      }
-    }
-    ////////////////////////////// 출력
-    MissionUtils.Console.print(`최종 우승자 : ${rankingArry.join(', ')}`);
+
+    this.makeRanking(
+      rankingArry,
+      largestDistance,
+      eachCarRacingReocord,
+      numberOfCar,
+      splitCarName,
+    );
+
+    this.rankingPrint(rankingArry);
+    ////////////////////////////// 출
   }
 
   getCarName() {
@@ -109,6 +113,23 @@ class App {
         largestDistance = eachCarRacingReocord[index].length;
     }
     return largestDistance;
+  }
+  makeRanking(
+    rankingArry,
+    largestDistance,
+    eachCarRacingReocord,
+    numberOfCar,
+    splitCarName,
+  ) {
+    for (let index = 0; index < numberOfCar; index++) {
+      if (largestDistance == eachCarRacingReocord[index].length) {
+        rankingArry.push(splitCarName[index]);
+      }
+    }
+  }
+
+  rankingPrint(rankingArry) {
+    MissionUtils.Console.print(`최종 우승자 : ${rankingArry.join(', ')}`);
   }
 }
 
