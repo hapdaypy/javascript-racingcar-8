@@ -15,6 +15,7 @@ class App {
 
     //////////////////////////// 레이싱 시작
     const eachCarRacingReocord = Array(numberOfCar).fill('');
+
     this.startRacing(
       eachCarRacingReocord,
       tryNumber,
@@ -23,12 +24,8 @@ class App {
     );
 
     /////////////////////////////// 최대값 찾기
+    largestDistance = this.findMaxDistance(eachCarRacingReocord);
 
-    let largestDistance = 0;
-    for (let index = 0; index < eachCarRacingReocord.length; index++) {
-      if (largestDistance < eachCarRacingReocord[index].length)
-        largestDistance = eachCarRacingReocord[index].length;
-    }
     /////////////////////////// 랭킹
     const rankingArry = [];
     for (let index = 0; index < numberOfCar; index++) {
@@ -104,6 +101,14 @@ class App {
   }
   makeRandomVariable() {
     return MissionUtils.Random.pickNumberInRange(0, 9);
+  }
+  findMaxDistance(eachCarRacingReocord) {
+    let largestDistance = 0;
+    for (let index = 0; index < eachCarRacingReocord.length; index++) {
+      if (largestDistance < eachCarRacingReocord[index].length)
+        largestDistance = eachCarRacingReocord[index].length;
+    }
+    return largestDistance;
   }
 }
 
