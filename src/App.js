@@ -9,46 +9,34 @@ class App {
     this.validateCarnameInput(carName);
     this.vaildateCarName(splitCarName);
     this.vaildateTryNumber(tryNumberInput);
-    const tryNumber = this.convertTryNumberToNumber(tryNumberInput);
 
-    const eachCarRacingReocord = Array.from(
-      { length: splitCarName.length },
-      () => '',
-    );
+    const tryNumber = this.convertTryNumberToNumber(tryNumberInput);
     const numberOfCar = splitCarName.length;
 
-    for (let index = 0; index < tryNumber; index++) {
-      for (let index2 = 0; index2 < numberOfCar; index2++) {
-        let straightjDiscrimination = MissionUtils.Random.pickNumberInRange(
-          0,
-          9,
-        );
+    //////////////////////////// 레이싱 시작
+    const eachCarRacingReocord = Array(numberOfCar).fill('');
+    this.startRacing(
+      eachCarRacingReocord,
+      tryNumber,
+      numberOfCar,
+      splitCarName,
+    );
 
-        if (straightjDiscrimination >= 4) {
-          eachCarRacingReocord[index2] += '-';
-        }
-        MissionUtils.Console.print(
-          `${splitCarName[index2]} : ${eachCarRacingReocord[index2]}`,
-        );
-      }
-      MissionUtils.Console.print('');
-    }
+    /////////////////////////////// 최대값 찾기
 
     let largestDistance = 0;
-
     for (let index = 0; index < eachCarRacingReocord.length; index++) {
       if (largestDistance < eachCarRacingReocord[index].length)
         largestDistance = eachCarRacingReocord[index].length;
     }
-
+    /////////////////////////// 랭킹
     const rankingArry = [];
-
     for (let index = 0; index < numberOfCar; index++) {
       if (largestDistance == eachCarRacingReocord[index].length) {
         rankingArry.push(splitCarName[index]);
       }
     }
-
+    ////////////////////////////// 출력
     MissionUtils.Console.print(`최종 우승자 : ${rankingArry.join(', ')}`);
   }
 
@@ -98,6 +86,24 @@ class App {
   convertTryNumberToNumber(tryNumberInput) {
     const tryNumber = Number(tryNumberInput);
     return tryNumber;
+  }
+
+  startRacing(eachCarRacingReocord, tryNumber, numberOfCar, splitCarName) {
+    for (let index = 0; index < tryNumber; index++) {
+      for (let index2 = 0; index2 < numberOfCar; index2++) {
+        let straightjDiscrimination = this.makeRandomVariable();
+        if (straightjDiscrimination >= 4) {
+          eachCarRacingReocord[index2] += '-';
+        }
+        MissionUtils.Console.print(
+          `${splitCarName[index2]} : ${eachCarRacingReocord[index2]}`,
+        );
+      }
+      MissionUtils.Console.print('');
+    }
+  }
+  makeRandomVariable() {
+    return MissionUtils.Random.pickNumberInRange(0, 9);
   }
 }
 
