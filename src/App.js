@@ -4,21 +4,18 @@ class App {
   async run() {
     const carName = await this.getCarName();
     const tryNumberInput = await this.getTryNumber();
-
-    const carNameLength = carName.length;
-
+    const splitCarName = this.splitCarNameString(carName);
+    const carNameLength = splitCarName.length;
     if (',' == carName[carNameLength - 1] || ',' == carName[0]) {
       // 문자열 마지막에 , 가 있을 경우 ERROR를 출력하고 종료
       throw new Error('[ERROR] 문자열의 처음과 끝에 ,가 있습니다.');
     }
-
     const tryNumber = Number(tryNumberInput);
     if (Number.isNaN(tryNumber) || !Number.isInteger(tryNumber))
       throw new Error('[ERROR] 시도 횟수는 정수여야 합니다.');
     if (tryNumber < 1)
       throw new Error('[ERROR] 시도 횟수는 1 이상이여야 합니다.');
 
-    const splitCarName = carName.split(','); // ,를 기준으로 자동차 이름 나누기
     for (const element of splitCarName) {
       if (element.length > 5)
         throw new Error('[ERROR] 이름이 5글자를 초과합니다.');
@@ -86,6 +83,9 @@ class App {
   }
   getTryNumber() {
     return MissionUtils.Console.readLineAsync('시도할 횟수는 몇 회인가요?');
+  }
+  splitCarNameString(carName) {
+    return carName.split(',');
   }
 }
 
