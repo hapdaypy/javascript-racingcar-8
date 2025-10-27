@@ -65,6 +65,10 @@ test.each([
   { inputs: ['pobi,woni', '3.5'], description: '이동 횟수가 소수' },
   { inputs: ['pobi,woni', 'abc'], description: '이동 횟수 숫자가 아님' },
   { inputs: [''], description: '이름이 공백 입력' },
+  {
+    inputs: ['pobbi', '', 'javaji'],
+    description: '자동차 이름 사이에 공백이 있음',
+  },
 ])('예외 테스트 - $description', async ({ inputs }) => {
   mockQuestions(inputs);
 
