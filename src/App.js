@@ -4,6 +4,7 @@ class App {
   async run() {
     const carName = await this.getCarName();
     const tryNumberInput = await this.getTryNumber();
+
     const splitCarName = this.splitCarNameString(carName);
 
     this.validateCarnameInput(carName);
@@ -13,9 +14,7 @@ class App {
     const tryNumber = this.convertTryNumberToNumber(tryNumberInput);
     const numberOfCar = splitCarName.length;
 
-    //////////////////////////// 레이싱 시작
     const eachCarRacingReocord = Array(numberOfCar).fill('');
-
     this.startRacing(
       eachCarRacingReocord,
       tryNumber,
@@ -23,12 +22,9 @@ class App {
       splitCarName,
     );
 
-    /////////////////////////////// 최대값 찾기
     const largestDistance = this.findMaxDistance(eachCarRacingReocord);
 
-    /////////////////////////// 랭킹
     const rankingArry = [];
-
     this.makeRanking(
       rankingArry,
       largestDistance,
@@ -38,7 +34,6 @@ class App {
     );
 
     this.rankingPrint(rankingArry);
-    ////////////////////////////// 출
   }
 
   getCarName() {
@@ -127,7 +122,6 @@ class App {
       }
     }
   }
-
   rankingPrint(rankingArry) {
     MissionUtils.Console.print(`최종 우승자 : ${rankingArry.join(', ')}`);
   }
