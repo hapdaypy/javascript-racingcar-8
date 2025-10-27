@@ -5,35 +5,16 @@ class App {
     const carName = await this.getCarName();
     const tryNumberInput = await this.getTryNumber();
     const splitCarName = this.splitCarNameString(carName);
-    const carNameLength = splitCarName.length;
-    if (',' == carName[carNameLength - 1] || ',' == carName[0]) {
-      // 문자열 마지막에 , 가 있을 경우 ERROR를 출력하고 종료
-      throw new Error('[ERROR] 문자열의 처음과 끝에 ,가 있습니다.');
-    }
+
+    this.validateCarnameInput(carName);
+    this.vaildateCarName(splitCarName);
+
     const tryNumber = Number(tryNumberInput);
     if (Number.isNaN(tryNumber) || !Number.isInteger(tryNumber))
       throw new Error('[ERROR] 시도 횟수는 정수여야 합니다.');
     if (tryNumber < 1)
       throw new Error('[ERROR] 시도 횟수는 1 이상이여야 합니다.');
 
-    for (const element of splitCarName) {
-      if (element.length > 5)
-        throw new Error('[ERROR] 이름이 5글자를 초과합니다.');
-      if (element.includes(' ')) {
-        throw new Error('[EEROR] 이름에 공백이 포함되어 있습니다.');
-      }
-      if (element == '') throw new Error('[ERROR] 이름에 공백이 있습니다.');
-    }
-
-    function isDuplicate(arr) {
-      const isDup = arr.some(function (x) {
-        return arr.indexOf(x) !== arr.lastIndexOf(x);
-      });
-      return isDup;
-    }
-
-    if (isDuplicate(splitCarName) == true)
-      throw new Error('[ERROR] 중복되는 이름이 있습니다.');
     const eachCarRacingReocord = Array.from(
       { length: splitCarName.length },
       () => '',
@@ -86,6 +67,31 @@ class App {
   }
   splitCarNameString(carName) {
     return carName.split(',');
+  }
+  validateCarnameInput(carName) {
+    if (',' == carName.startsWith(',') || ',' == carName.endsWith(',')) {
+      throw new Error('[ERROR] 문자열의 처음과 끝에 ,가 있습니다.');
+    }
+  }
+  vaildateCarName(splitCarName) {
+    for (const element of splitCarName) {
+      if (element.length > 5)
+        throw new Error('[ERROR] 이름이 5글자를 초과합니다.');
+
+      if (element.includes(' ')) {
+        throw new Error('[EEROR] 이름에 공백이 포함되어 있습니다.');
+      }
+      if (element == '') throw new Error('[ERROR] 이름에 공백이 있습니다.');
+    }
+
+    if (this.isDuplicate(splitCarName) == true)
+      throw new Error('[ERROR] 중복되는 이름이 있습니다.');
+  }
+  isDuplicate(arr) {
+    const isDup = arr.some(function (x) {
+      return arr.indexOf(x) !== arr.lastIndexOf(x);
+    });
+    return isDup;
   }
 }
 
