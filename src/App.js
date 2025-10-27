@@ -10,21 +10,23 @@ class App {
 
     if (',' == carName[carNameLength - 1]) {
       // 문자열 마지막에 , 가 있을 경우 ERROR를 출력하고 종료
-      throw new Error('ERROR');
+      throw new Error('[ERROR]');
     }
 
-    if (',' == carName[0]) throw new Error('ERROR');
+    if (',' == carName[0]) throw new Error('[ERROR]');
 
-    const tryNumber =
+    const tryNumberInput =
       await MissionUtils.Console.readLineAsync('시도할 횟수는 몇 회인가요?');
+    if (Number.isNaN(tryNumber) == true) throw new Error('[ERROR]');
 
-    if (!Number.isNaN(tryNumber)) throw new Error('ERROR');
+    const tryNumber = Number(tryNumberInput);
+    if (tryNumber < 1) throw new Error('[ERROR]');
 
     const splitCarName = carName.split(','); // ,를 기준으로 자동차 이름 나누기
 
     for (const element of splitCarName) {
       // 이름에 공백이 있을 경우
-      if (element == '' || element.length > 5) throw new Error('ERROR');
+      if (element == '' || element.length > 5) throw new Error('[ERROR]');
     }
 
     const eachCarRacingReocord = Array.from(
