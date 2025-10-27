@@ -19,7 +19,6 @@ class App {
       await MissionUtils.Console.readLineAsync('시도할 횟수는 몇 회인가요?');
 
     const tryNumber = Number(tryNumberInput);
-
     if (Number.isNaN(tryNumber) || tryNumber < 1)
       throw new Error('[ERROR] 시도 횟수는 1이상의 정수여야 합니다.');
     if (!Number.isInteger(tryNumber)) {
@@ -33,6 +32,16 @@ class App {
       // 이름에 공백이 있을 경우
       if (element == '' || element.length > 5) throw new Error('[ERROR]');
     }
+
+    function isDuplicate(arr) {
+      const isDup = arr.some(function (x) {
+        return arr.indexOf(x) !== arr.lastIndexOf(x);
+      });
+
+      return isDup;
+    }
+
+    if (isDuplicate(splitCarName) == true) throw new Error('[ERROR]'); // 중복되는 값 찾기
 
     const eachCarRacingReocord = Array.from(
       { length: splitCarName.length },
