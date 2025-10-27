@@ -17,10 +17,15 @@ class App {
 
     const tryNumberInput =
       await MissionUtils.Console.readLineAsync('시도할 횟수는 몇 회인가요?');
-    if (Number.isNaN(tryNumber) == true) throw new Error('[ERROR]');
 
     const tryNumber = Number(tryNumberInput);
-    if (tryNumber < 1) throw new Error('[ERROR]');
+
+    if (Number.isNaN(tryNumber) || tryNumber < 1)
+      throw new Error('[ERROR] 시도 횟수는 1이상의 정수여야 합니다.');
+    if (!Number.isInteger(tryNumber)) {
+      // !는 "not"을 의미
+      throw new Error('[ERROR] 시도 횟수는 정수여야 합니다.');
+    }
 
     const splitCarName = carName.split(','); // ,를 기준으로 자동차 이름 나누기
 
