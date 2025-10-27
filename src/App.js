@@ -9,17 +9,13 @@ class App {
     this.validateCarnameInput(carName);
     this.vaildateCarName(splitCarName);
 
-    const tryNumber = Number(tryNumberInput);
-    if (Number.isNaN(tryNumber) || !Number.isInteger(tryNumber))
-      throw new Error('[ERROR] 시도 횟수는 정수여야 합니다.');
-    if (tryNumber < 1)
-      throw new Error('[ERROR] 시도 횟수는 1 이상이여야 합니다.');
+    const tryNumber = this.vaildateTryNumber(tryNumberInput);
+    // const
 
     const eachCarRacingReocord = Array.from(
       { length: splitCarName.length },
       () => '',
     );
-
     const numberOfCar = splitCarName.length;
 
     for (let index = 0; index < tryNumber; index++) {
@@ -92,6 +88,15 @@ class App {
       return arr.indexOf(x) !== arr.lastIndexOf(x);
     });
     return isDup;
+  }
+  vaildateTryNumber(tryNumberInput) {
+    const tryNumber = Number(tryNumberInput);
+
+    if (Number.isNaN(tryNumber) || !Number.isInteger(tryNumber))
+      throw new Error('[ERROR] 시도 횟수는 정수여야 합니다.');
+    if (tryNumber < 1)
+      throw new Error('[ERROR] 시도 횟수는 1 이상이여야 합니다.');
+    return tryNumber;
   }
 }
 
